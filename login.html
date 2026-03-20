@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* Full Background */
+body {
+    background: url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Dark overlay */
+.overlay {
+    background: rgba(0, 0, 0, 0.75);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Glass Card */
+.login-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.6);
+    color: white;
+}
+
+/* Input fields */
+.form-control {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+}
+
+.form-control:focus {
+    background: rgba(255,255,255,0.2);
+    box-shadow: none;
+    border: 1px solid #00ffcc;
+    color: white;
+}
+
+/* Button */
+.btn-primary {
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    border: none;
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #0072ff, #00c6ff);
+}
+
+/* Logo image */
+.login-logo {
+    border-radius: 50%;
+    box-shadow: 0px 5px 20px rgba(0,255,255,0.6);
+}
+</style>
+
+<div class="overlay">
+  <div class="login-card">
+
+    <div class="text-center mb-3">
+      <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png"
+           width="90" height="90" class="login-logo">
+    </div>
+
+    <h3 class="text-center mb-4">🔐 User Login</h3>
+
+    <form method="POST">
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+
+      <button class="btn btn-primary w-100 mt-2">Login</button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

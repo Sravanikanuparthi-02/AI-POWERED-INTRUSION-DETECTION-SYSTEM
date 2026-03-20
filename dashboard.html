@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* Background */
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+}
+
+/* Welcome Text */
+.welcome-text {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* IDS Image */
+.ids-image {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.6);
+    transition: 0.4s ease;
+}
+
+.ids-image:hover {
+    transform: scale(1.02);
+}
+
+/* Card */
+.ids-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
+    padding: 30px;
+}
+
+/* Card Title */
+.ids-title {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Chart */
+canvas {
+    max-height: 350px;
+}
+</style>
+
+
+<div class="container mt-4">
+
+    <h2 class="text-center welcome-text">
+        🔐 Welcome, {{ session["user_name"] }}
+    </h2>
+
+    <div class="mt-4">
+        
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+            <div class="ids-card">
+                <h4 class="ids-title">📊 Intrusion Prediction Summary</h4>
+                <canvas id="idsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+fetch("/chart-data")
+  .then(res => res.json())
+  .then(data => {
+    const ctx = document.getElementById("idsChart");
+
+    new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: "Prediction Count",
+          data: data.counts,
+          backgroundColor: [
+            "#00ff99",
+            "#ff4d4d",
+            "#ffa500",
+            "#3399ff",
+            "#cc66ff"
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: "white"
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="text-center">Saved Logs</h3>
+
+<table class="table table-bordered table-striped mt-4">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Flow Duration</th>
+      <th>Fwd Pkts</th>
+      <th>Bwd Pkts</th>
+      <th>Bytes/s</th>
+      <th>Pkts/s</th>
+      <th>Dest Port</th>
+      <th>Protocol</th>
+      <th>Prediction</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for log in logs %}
+    <tr>
+      <td>{{ log.id }}</td>
+      <td>{{ log.flow_duration }}</td>
+      <td>{{ log.total_fwd_packets }}</td>
+      <td>{{ log.total_backward_packets }}</td>
+      <td>{{ log.flow_bytes_s }}</td>
+      <td>{{ log.flow_packets_s }}</td>
+      <td>{{ log.destination_port }}</td>
+      <td>{{ log.protocol }}</td>
+      <td>
+        {% if log.prediction != "BENIGN" %}
+          <span class="badge bg-danger">{{ log.prediction }}</span>
+        {% else %}
+          <span class="badge bg-success">{{ log.prediction }}</span>
+        {% endif %}
+      </td>
+      <td>{{ log.timestamp }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
